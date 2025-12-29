@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerti - WhatsApp Business Automation | SEEEEOH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #25D366;
+            --primary-dark: #128C7E;
+            --secondary: #075E54;
+            --accent: #DCF8C6;
+            --gray: #ECE5DD;
+            --dark: #1f2937;
+            --seeeeoh: #667eea;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-dark) 100%);
+            min-height: 100vh;
+        }
+
+        .landing {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .landing-content {
+            max-width: 1200px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo-large {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 30px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .landing h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .landing p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard {
+            display: none;
+            height: 100vh;
+            background: #f5f5f5;
+        }
+
+        .dashboard.active {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--secondary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+
+        .sidebar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            border-left: 4px solid white;
+        }
+
+        .nav-item .icon {
+            font-size: 20px;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .topbar h2 {
+            color: var(--dark);
+            font-size: 24px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-badge {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .badge-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-title {
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            color: #10b981;
+            font-weight: 500;
+        }
+
+        .stat-change.negative {
+            color: #ef4444;
+        }
+
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .business-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .business-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .business-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .business-type {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .business-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .business-stat {
+            text-align: center;
+        }
+
+        .business-stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .business-stat-label {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-paused {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .whatsapp-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .whatsapp-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .chat-info h3 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .chat-info p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #ECE5DD;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+        }
+
+        .message.customer {
+            justify-content: flex-start;
+        }
+
+        .message.bot {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 65%;
+            padding: 10px 15px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .customer .message-bubble {
+            background: white;
+            border-radius: 0 8px 8px 8px;
+        }
+
+        .bot .message-bubble {
+            background: var(--accent);
+            border-radius: 8px 0 8px 8px;
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #667781;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .chat-input {
+            padding: 15px 20px;
+            background: #f0f0f0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--primary);
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .plan-period {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .plan-features {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .plan-feature {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plan-feature::before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -260px;
+                transition: left 0.3s ease;
+                z-index: 100;
+                height: 100vh;
+            }
+
+            .sidebar.mobile-open {
+                left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .landing h1 {
+                font-size: 32px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .seeeeoh-tag {
+            background: var(--seeeeoh);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="landing" id="landingPage">
+        <div class="landing-content">
+            <div class="logo-large">
+                <img src="ALERTI4.png" alt="Alerti Logo">
+            </div>
+            <h1>24/7 WhatsApp AI Agent<br>For Your Business</h1>
+            <p>Automate customer responses, take orders, book appointments - all on WhatsApp</p>
+            
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="showDemo('business')">Business Owner Demo</button>
+                <button class="btn btn-secondary" onclick="showDemo('admin')">SEEEEOH Admin Demo</button>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">📱</div>
+                    <h3>WhatsApp Integration</h3>
+                    <p>Works directly with WhatsApp Business API</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🤖</div>
+                    <h3>AI-Powered</h3>
+                    <p>Smart responses in English, Oshiwambo & Afrikaans</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🎯</div>
+                    <h3>Multi-Business</h3>
+                    <p>Manage unlimited businesses from one platform</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3>Analytics</h3>
+                    <p>Track messages, responses & conversions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💰</div>
+                    <h3>SaaS Revenue</h3>
+                    <p>Recurring monthly income from clients</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🚀</div>
+                    <h3>Built by SEEEEOH</h3>
+                    <p>Enterprise-grade AI solutions for Namibia</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard" id="businessDashboard">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="ALERTI4.png" alt="Alerti">
+                </div>
+                <div class="sidebar-title">Alerti</div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="switchView('overview')">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </div>
+                <div class="nav-item" onclick="switchView('messages')">
+                    <span class="icon">💬</span>
+                    <span>Messages</span>
+                </div>
+                <div class="nav-item" onclick="switchView('whatsapp-demo')">
+                    <span class="icon">📱</span>
+                    <span>WhatsApp Demo</span>
+                </div>
+                <div class="nav-item" onclick="switchView('settings')">
+                    <span class="icon">⚙️</span>
+                    <span>Settings</span>
+                </div>
+                <div class="nav-item" onclick="switchView('billing')">
+                    <span class="icon">💳</span>
+                    <span>Billing</span>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">TB</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 14px;">Tasty Bites</div>
+                        <div style="font-size: 12px; opacity: 0.8;">Restaurant</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="topbar">
+                <h2 id="viewTitle">Dashboard Overview</h2>
+                <div class="topbar-actions">
+                    <div class="notification-badge">
+                        🔔
+                        <span class="badge-count">12</span>
+                    </div>
+                    <span style="color: var(--primary); font-weight: 600;">✓ AI Active</span>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="view active" id="overview">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Messages Today</span>
+                                <div class="stat-icon" style="background: #dbeafe; color: #1e40af;">📨</div>
+                            </div>
+                            <div class="stat-value">247</div>
+                            <div class="stat-change">↑ 23% from yesterday</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">AI Response Rate</span>
+                                <div class="stat-icon" style="background: #d1fae5; color: #065f46;">🤖</div>
+                            </div>
+                            <div class="stat-value">94%</div>
+                            <div class="stat-change">↑ 5% from last week</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Orders Taken</span>
+                                <div class="stat-icon" style="background: #fef3c7; color: #92400e;">🛒</div>
+                            </div>
+                            <div class="stat-value">43</div>
+                            <div class="stat-change">↑ 18% from yesterday</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Avg Response Time</span>
+                                <div class="stat-icon" style="background: #e0e7ff; color: #4338ca;">⚡</div>
+                            </div>
+                            <div class="stat-value">1.2s</div>
+                            <div class="stat-change">↓ 0.3s faster</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 20px; color: var(--dark);">Recent Activity</h3>
+                    <div style="background: white; border-radius: 12px; padding: 20px;">
+                        <div style="padding: 15px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">New order from +264 81 234 5678</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">2 x Beef Burger, 1 x Fries - N$180</div>
+                            </div>
+                            <div style="font-size: 12px; color: #6b7280;">2 min ago</div>
+                        </div>
+                        <div style="padding: 15px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">Menu inquiry from +264 85 987 6543</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">AI responded with full menu</div>
+                            </div>
+                            <div style="font-size: 12px; color: #6b7280;">15 min ago</div>
+                        </div>
+                        <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">Operating hours question</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">AI provided opening times</div>
+                            </div>
+                            <div style="font-size: 12px; color: #6b7280;">32 min ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view" id="messages">
+                    <h3 style="margin-bottom: 20px;">Customer Conversations</h3>
+                    <div style="background: white; border-radius: 12px; padding: 20px;">
+                        <p style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                            💬 All customer conversations managed by AI<br>
+                            <span style="font-size: 14px;">You can take over any conversation manually if needed</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="view" id="whatsapp-demo">
+                    <div style="margin-bottom: 20px;">
+                        <h3>Try the AI Assistant</h3>
+                        <p style="color: #6b7280; margin-top: 8px;">See how customers interact with your WhatsApp AI agent</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 500;">Simulate as:</label>
+                        <select id="businessTypeSelect" onchange="switchBusiness()" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px; width: 100%; max-width: 300px;">
+                            <option value="restaurant">Tasty Bites Restaurant</option>
+                            <option value="salon">Glam Beauty Salon</option>
+                            <option value="retail">Tech Haven Electronics</option>
+                            <option value="service">QuickFix Services</option>
+                        </select>
+                    </div>
+
+                    <div class="whatsapp-container">
+                        <div class="whatsapp-header">
+                            <div class="chat-avatar" id="chatAvatar">TB</div>
+                            <div class="chat-info">
+                                <h3 id="chatBusinessName">Tasty Bites Restaurant</h3>
+                                <p id="chatBusinessStatus">Online • AI Agent Active</p>
+                            </div>
+                        </div>
+
+                        <div class="chat-messages" id="chatMessages"></div>
+
+                        <div class="chat-input">
+                            <input type="text" id="customerMessage" placeholder="Type a message..." onkeypress="handleEnter(event)">
+                            <button class="send-btn" onclick="sendCustomerMessage()">➤</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <strong>💡 Try asking:</strong>
+                        <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;">
+                            <button onclick="quickQuestion('What is on your menu?')" style="padding: 8px 15px; background: white; border: 1px solid #e5e7eb; border-radius: 20px; cursor: pointer; font-size: 13px;">What's on your menu?</button>
+                            <button onclick="quickQuestion('What are your prices?')" style="padding: 8px 15px; background: white; border: 1px solid #e5e7eb; border-radius: 20px; cursor: pointer; font-size: 13px;">What are your prices?</button>
+                            <button onclick="quickQuestion('What time do you open?')" style="padding: 8px 15px; background: white; border: 1px solid #e5e7eb; border-radius: 20px; cursor: pointer; font-size: 13px;">Opening hours?</button>
+                            <button onclick="quickQuestion('I want to order')" style="padding: 8px 15px; background: white; border: 1px solid #e5e7eb; border-radius: 20px; cursor: pointer; font-size: 13px;">Make an order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view" id="settings">
+                    <h3 style="margin-bottom: 20px;">AI Agent Settings</h3>
+                    <div style="background: white; border-radius: 12px; padding: 30px;">
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" value="Tasty Bites Restaurant">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp Number</label>
+                            <input type="text" value="+264 61 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Business Hours</label>
+                            <input type="text" value="Mon-Sat: 10:00 AM - 10:00 PM">
+                        </div>
+                        <div class="form-group">
+                            <label>AI Response Language</label>
+                            <select>
+                                <option>English</option>
+                                <option>Oshiwambo</option>
+                                <option>Afrikaans</option>
+                                <option>All Languages (Auto-detect)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Custom Welcome Message</label>
+                            <textarea>Hi! 👋 Welcome to Tasty Bites! How can I help you today?</textarea>
+                        </div>
+                        <button class="btn btn-primary">Save Settings</button>
+                    </div>
+                </div>
+
+                <div class="view" id="billing">
+                    <h3 style="margin-bottom: 20px;">Subscription & Billing</h3>
+                    <div style="background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <div>
+                                <h4 style="font-size: 18px; margin-bottom: 5px;">Current Plan: Business</h4>
+                                <p style="color: #6b7280;">N$1,200/month</p>
+                            </div>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                            <div>
+                                <div style="color: #6b7280; font-size: 13px;">Messages Used</div>
+                                <div style="font-size: 20px; font-weight: 600; margin-top: 5px;">1,234 / 2,000</div>
+                            </div>
+                            <div>
+                                <div style="color: #6b7280; font-size: 13px;">Next Billing</div>
+                                <div style="font-size: 20px; font-weight: 600; margin-top: 5px;">Jan 15, 2026</div>
+                            </div>
+                            <div>
+                                <div style="color: #6b7280; font-size: 13px;">Support Level</div>
+                                <div style="font-size: 20px; font-weight: 600; margin-top: 5px;">Priority</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-bottom: 15px;">Available Plans</h4>
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="plan-name">Starter</div>
+                            <div class="plan-price">N$500</div>
+                            <div class="plan-period">per month</div>
+                            <div class="plan-features">
+                                <div class="plan-feature">500 messages/month</div>
+                                <div class="plan-feature">1 business number</div>
+                                <div class="plan-feature">Basic AI responses</div>
+                                <div class="plan-feature">Email support</div>
+                            </div>
+                            <button class="btn btn-secondary">Current Plan</button>
+                        </div>
+
+                        <div class="pricing-card featured">
+                            <div class="plan-name">Business</div>
+                            <div class="plan-price">N$1,200</div>
+                            <div class="plan-period">per month</div>
+                            <div class="plan-features">
+                                <div class="plan-feature">2,000 messages/month</div>
+                                <div class="plan-feature">3 business numbers</div>
+                                <div class="plan-feature">Advanced AI + Training</div>
+                                <div class="plan-feature">Priority support</div>
+                                <div class="plan-feature">Analytics dashboard</div>
+                            </div>
+                            <button class="btn btn-primary">Active</button>
+                        </div>
+
+                        <div class="pricing-card">
+                            <div class="plan-name">Enterprise</div>
+                            <div class="plan-price">N$2,500</div>
+                            <div class="plan-period">per month</div>
+                            <div class="plan-features">
+                                <div class="plan-feature">Unlimited messages</div>
+                                <div class="plan-feature">Unlimited numbers</div>
+                                <div class="plan-feature">Custom AI model</div>
+                                <div class="plan-feature">24/7 support</div>
+                                <div class="plan-feature">API access</div>
+                                <div class="plan-feature">Custom integrations</div>
+                            </div>
+                            <button class="btn btn-primary">Upgrade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard" id="adminDashboard">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="ALERTI4.png" alt="Alerti">
+                </div>
+                <div class="sidebar-title">Admin Panel</div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="switchAdminView('admin-overview')">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </div>
+                <div class="nav-item" onclick="switchAdminView('admin-businesses')">
+                    <span class="icon">🏢</span>
+                    <span>All Businesses</span>
+                </div>
+                <div class="nav-item" onclick="switchAdminView('admin-revenue')">
+                    <span class="icon">💰</span>
+                    <span>Revenue</span>
+                </div>
+                <div class="nav-item" onclick="switchAdminView('admin-analytics')">
+                    <span class="icon">📈</span>
+                    <span>Analytics</span>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">BE</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 14px;">Benjamen Elungu</div>
+                        <div style="font-size: 12px; opacity: 0.8;">SEEEEOH Admin</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="topbar">
+                <h2 id="adminViewTitle">Platform Overview</h2>
+                <div class="topbar-actions">
+                    <button class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px;">+ Add Business</button>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="view active" id="admin-overview">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Total Businesses</span>
+                                <div class="stat-icon" style="background: #dbeafe; color: #1e40af;">🏢</div>
+                            </div>
+                            <div class="stat-value">47</div>
+                            <div class="stat-change">↑ 8 new this month</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Monthly Revenue</span>
+                                <div class="stat-icon" style="background: #d1fae5; color: #065f46;">💰</div>
+                            </div>
+                            <div class="stat-value">N$54,300</div>
+                            <div class="stat-change">↑ N$6,200 from last month</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Messages Handled</span>
+                                <div class="stat-icon" style="background: #fef3c7; color: #92400e;">📨</div>
+                            </div>
+                            <div class="stat-value">43.2K</div>
+                            <div class="stat-change">↑ 12.4K from last month</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Active Rate</span>
+                                <div class="stat-icon" style="background: #e0e7ff; color: #4338ca;">⚡</div>
+                            </div>
+                            <div class="stat-value">96%</div>
+                            <div class="stat-change">45 businesses active now</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Recent Signups</h3>
+                    <div style="background: white; border-radius: 12px; padding: 20px;">
+                        <div style="padding: 15px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">Fresh Cuts Barbershop</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">Business Plan • N$1,200/month</div>
+                            </div>
+                            <div style="font-size: 12px; color: #6b7280;">2 hours ago</div>
+                        </div>
+                        <div style="padding: 15px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">Okahandja Supermarket</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">Enterprise Plan • N$2,500/month</div>
+                            </div>
+                            <div style="font-size: 12px; color: #6b7280;">1 day ago</div>
+                        </div>
+                        <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">Namibia Tours & Safaris</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">Business Plan • N$1,200/month</div>
+                            </div>
+                            <div style="font-size: 12px; color: #6b7280;">3 days ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view" id="admin-businesses">
+                    <h3 style="margin-bottom: 20px;">All Businesses (47)</h3>
+                    <div class="business-grid">
+                        <div class="business-card">
+                            <div class="business-icon" style="background: #fef3c7; color: #92400e;">🍔</div>
+                            <div class="business-name">Tasty Bites Restaurant</div>
+                            <div class="business-type">Restaurant</div>
+                            <span class="status-badge status-active">Active</span>
+                            <div class="business-stats">
+                                <div class="business-stat">
+                                    <div class="business-stat-value">247</div>
+                                    <div class="business-stat-label">Messages</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">94%</div>
+                                    <div class="business-stat-label">AI Rate</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">N$1.2K</div>
+                                    <div class="business-stat-label">MRR</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="business-card">
+                            <div class="business-icon" style="background: #fce7f3; color: #9f1239;">💅</div>
+                            <div class="business-name">Glam Beauty Salon</div>
+                            <div class="business-type">Beauty & Wellness</div>
+                            <span class="status-badge status-active">Active</span>
+                            <div class="business-stats">
+                                <div class="business-stat">
+                                    <div class="business-stat-value">189</div>
+                                    <div class="business-stat-label">Messages</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">92%</div>
+                                    <div class="business-stat-label">AI Rate</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">N$1.2K</div>
+                                    <div class="business-stat-label">MRR</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="business-card">
+                            <div class="business-icon" style="background: #dbeafe; color: #1e40af;">💻</div>
+                            <div class="business-name">Tech Haven Electronics</div>
+                            <div class="business-type">Retail</div>
+                            <span class="status-badge status-active">Active</span>
+                            <div class="business-stats">
+                                <div class="business-stat">
+                                    <div class="business-stat-value">412</div>
+                                    <div class="business-stat-label">Messages</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">89%</div>
+                                    <div class="business-stat-label">AI Rate</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">N$2.5K</div>
+                                    <div class="business-stat-label">MRR</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="business-card">
+                            <div class="business-icon" style="background: #d1fae5; color: #065f46;">🔧</div>
+                            <div class="business-name">QuickFix Services</div>
+                            <div class="business-type">Home Services</div>
+                            <span class="status-badge status-active">Active</span>
+                            <div class="business-stats">
+                                <div class="business-stat">
+                                    <div class="business-stat-value">156</div>
+                                    <div class="business-stat-label">Messages</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">96%</div>
+                                    <div class="business-stat-label">AI Rate</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">N$500</div>
+                                    <div class="business-stat-label">MRR</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="business-card" style="opacity: 0.6;">
+                            <div class="business-icon" style="background: #e5e7eb; color: #6b7280;">🏨</div>
+                            <div class="business-name">Windhoek Lodge</div>
+                            <div class="business-type">Hospitality</div>
+                            <span class="status-badge status-paused">Paused</span>
+                            <div class="business-stats">
+                                <div class="business-stat">
+                                    <div class="business-stat-value">0</div>
+                                    <div class="business-stat-label">Messages</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">--</div>
+                                    <div class="business-stat-label">AI Rate</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">N$0</div>
+                                    <div class="business-stat-label">MRR</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="business-card">
+                            <div class="business-icon" style="background: #fef3c7; color: #92400e;">🏃</div>
+                            <div class="business-name">FitLife Gym</div>
+                            <div class="business-type">Fitness</div>
+                            <span class="status-badge status-active">Active</span>
+                            <div class="business-stats">
+                                <div class="business-stat">
+                                    <div class="business-stat-value">298</div>
+                                    <div class="business-stat-label">Messages</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">91%</div>
+                                    <div class="business-stat-label">AI Rate</div>
+                                </div>
+                                <div class="business-stat">
+                                    <div class="business-stat-value">N$1.2K</div>
+                                    <div class="business-stat-label">MRR</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view" id="admin-revenue">
+                    <h3 style="margin-bottom: 20px;">Revenue Dashboard</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">This Month</span>
+                                <div class="stat-icon" style="background: #d1fae5; color: #065f46;">💰</div>
+                            </div>
+                            <div class="stat-value">N$54,300</div>
+                            <div class="stat-change">↑ 13% from last month</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Annual Revenue</span>
+                                <div class="stat-icon" style="background: #dbeafe; color: #1e40af;">📈</div>
+                            </div>
+                            <div class="stat-value">N$615K</div>
+                            <div class="stat-change">↑ 28% year-over-year</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Avg Revenue/Business</span>
+                                <div class="stat-icon" style="background: #fef3c7; color: #92400e;">💵</div>
+                            </div>
+                            <div class="stat-value">N$1,155</div>
+                            <div class="stat-change">per month</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Churn Rate</span>
+                                <div class="stat-icon" style="background: #e0e7ff; color: #4338ca;">📊</div>
+                            </div>
+                            <div class="stat-value">4.2%</div>
+                            <div class="stat-change negative">2 cancelled this month</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; background: white; border-radius: 12px; padding: 30px;">
+                        <h4 style="margin-bottom: 20px;">Revenue Breakdown by Plan</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                            <div>
+                                <div style="font-size: 14px; color: #6b7280; margin-bottom: 8px;">Starter Plan</div>
+                                <div style="font-size: 28px; font-weight: 600;">N$9,000</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">18 businesses</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 14px; color: #6b7280; margin-bottom: 8px;">Business Plan</div>
+                                <div style="font-size: 28px; font-weight: 600;">N$32,400</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">27 businesses</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 14px; color: #6b7280; margin-bottom: 8px;">Enterprise Plan</div>
+                                <div style="font-size: 28px; font-weight: 600;">N$12,900</div>
+                                <div style="font-size: 13px; color: #6b7280; margin-top: 4px;">2 businesses</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view" id="admin-analytics">
+                    <h3 style="margin-bottom: 20px;">Platform Analytics</h3>
+                    <div style="background: white; border-radius: 12px; padding: 30px;">
+                        <h4 style="margin-bottom: 15px;">Top Performing Businesses</h4>
+                        <div style="space-y: 15px;">
+                            <div style="padding: 15px; background: #f9fafb; border-radius: 8px; margin-bottom: 10px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600;">Tech Haven Electronics</div>
+                                        <div style="font-size: 13px; color: #6b7280;">412 messages • 89% AI rate</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-weight: 600; color: var(--primary);">N$2,500/mo</div>
+                                        <div style="font-size: 12px; color: #6b7280;">Enterprise</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding: 15px; background: #f9fafb; border-radius: 8px; margin-bottom: 10px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600;">FitLife Gym</div>
+                                        <div style="font-size: 13px; color: #6b7280;">298 messages • 91% AI rate</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-weight: 600; color: var(--primary);">N$1,200/mo</div>
+                                        <div style="font-size: 12px; color: #6b7280;">Business</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding: 15px; background: #f9fafb; border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600;">Tasty Bites Restaurant</div>
+                                        <div style="font-size: 13px; color: #6b7280;">247 messages • 94% AI rate</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-weight: 600; color: var(--primary);">N$1,200/mo</div>
+                                        <div style="font-size: 12px; color: #6b7280;">Business</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const businesses = {
+            restaurant: {
+                name: "Tasty Bites Restaurant",
+                avatar: "TB",
+                type: "Restaurant",
+                responses: {
+                    menu: "🍔 Our Menu:\n\n**Burgers:**\n• Beef Burger - N$65\n• Chicken Burger - N$60\n• Veggie Burger - N$55\n\n**Sides:**\n• Fries - N$25\n• Onion Rings - N$30\n• Coleslaw - N$20\n\n**Drinks:**\n• Soft Drinks - N$15\n• Milkshakes - N$35\n\nWould you like to place an order? 😊",
+                    hours: "⏰ We're open:\n\nMon-Sat: 10:00 AM - 10:00 PM\nSunday: 11:00 AM - 9:00 PM\n\nWe're currently OPEN! 🎉",
+                    order: "Great! I'd love to help you order. 🛒\n\nWhat would you like?\n\n1️⃣ Burgers\n2️⃣ Sides\n3️⃣ Drinks\n4️⃣ Combo Meals\n\nJust tell me what you'd like!",
+                    location: "📍 Find us at:\n\nSam Nujoma Drive, Windhoek\n(Next to Maerua Mall)\n\nFree parking available! 🚗",
+                    price: "💰 Our prices are very affordable!\n\nBurgers start from N$55\nMost combos are N$85-N$110\n\nWould you like to see our full menu?",
+                    default: "Hi! 👋 Welcome to Tasty Bites!\n\nI can help you with:\n• View our menu 🍔\n• Place an order 🛒\n• Check opening hours ⏰\n• Get directions 📍\n\nWhat would you like to know?"
+                }
+            },
+            salon: {
+                name: "Glam Beauty Salon",
+                avatar: "GB",
+                type: "Beauty & Wellness",
+                responses: {
+                    menu: "💅 Our Services:\n\n**Hair:**\n• Wash & Blow Dry - N$150\n• Haircut - N$180\n• Color Treatment - N$450\n• Braids - N$250+\n\n**Nails:**\n• Manicure - N$120\n• Pedicure - N$150\n• Gel Nails - N$280\n\n**Beauty:**\n• Facial - N$200\n• Makeup - N$350\n\nWould you like to book? 📅",
+                    hours: "⏰ Opening Hours:\n\nMon-Fri: 9:00 AM - 6:00 PM\nSaturday: 9:00 AM - 4:00 PM\nSunday: Closed\n\nWalk-ins welcome! ✨",
+                    order: "Perfect! Let's book your appointment. 📅\n\nWhich service interests you?\n\n1️⃣ Hair Services\n2️⃣ Nail Care\n3️⃣ Beauty Treatments\n\nWhat day works best for you?",
+                    location: "📍 Visit us at:\n\nIndependence Avenue, Windhoek\n(Opposite Wernhil Park)\n\nFree parking in the back! 🚗",
+                    price: "💰 Our Pricing:\n\nHair services from N$150\nNails from N$120\nBeauty treatments from N$200\n\n**Special:** First-time clients get 10% off! ✨",
+                    default: "✨ Welcome to Glam Beauty Salon!\n\nHow can I help you today?\n• View services 💅\n• Book appointment 📅\n• Check prices 💰\n• Get directions 📍\n\nLet me know! 😊"
+                }
+            },
+            retail: {
+                name: "Tech Haven Electronics",
+                avatar: "TH",
+                type: "Electronics Retail",
+                responses: {
+                    menu: "💻 Featured Products:\n\n**Laptops:**\n• HP Pavilion - N$12,500\n• Dell Inspiron - N$14,800\n• MacBook Air - N$24,900\n\n**Phones:**\n• Samsung Galaxy - N$8,500\n• iPhone 14 - N$18,999\n\n**Accessories:**\n• Headphones - N$850+\n• Chargers - N$250+\n\nNeed help finding something? 🔍",
+                    hours: "⏰ Store Hours:\n\nMon-Fri: 8:00 AM - 6:00 PM\nSaturday: 9:00 AM - 5:00 PM\nSunday: 10:00 AM - 2:00 PM\n\nWe're OPEN now! 🎉",
+                    order: "Excellent choice! 🛒\n\nLet me help you:\n\n1️⃣ Check product availability\n2️⃣ Compare models\n3️⃣ Get payment options\n4️⃣ Arrange delivery\n\nWhat do you need?",
+                    location: "📍 Find us:\n\nGrote Street, Windhoek CBD\n(Near Game Stores)\n\nParking: Gustav Voigts Centre 🚗",
+                    price: "💰 We offer:\n\n• Competitive prices\n• Payment plans available\n• Trade-in options\n• 12-month warranty\n\nWhat product are you interested in?",
+                    default: "👋 Hi! Welcome to Tech Haven!\n\nI can help you:\n• Browse products 💻\n• Check prices 💰\n• Ask about stock 📦\n• Payment plans 💳\n\nWhat are you looking for?"
+                }
+            },
+            service: {
+                name: "QuickFix Services",
+                avatar: "QF",
+                type: "Home Services",
+                responses: {
+                    menu: "🔧 Our Services:\n\n**Plumbing:**\n• Leak repairs - N$350+\n• Pipe installation - N$500+\n• Drain cleaning - N$300\n\n**Electrical:**\n• Wiring - N$400+\n• Light fixtures - N$250\n• DB board - N$600+\n\n**General:**\n• Painting - N$80/sqm\n• Carpentry - N$450+\n\nNeed a quote? 📝",
+                    hours: "⏰ Available:\n\nMon-Fri: 7:00 AM - 6:00 PM\nSaturday: 8:00 AM - 2:00 PM\nSunday: Emergency only\n\n**24/7 Emergency:** +264 81 999 8888 🚨",
+                    order: "I'll help you book! 🗓️\n\nWhat service do you need?\n\n1️⃣ Plumbing\n2️⃣ Electrical\n3️⃣ Painting\n4️⃣ Carpentry\n5️⃣ Other\n\nWhen do you need it done?",
+                    location: "📍 Service Area:\n\nWindhoek & surrounding areas\n(Up to 30km radius)\n\nHead office: Katutura\n\nWe come to you! 🚐",
+                    price: "💰 Pricing:\n\n• Free quotes\n• Competitive rates\n• No hidden fees\n• Payment after completion\n\nCall-out fee: N$150 (waived if you book) ✨",
+                    default: "🔧 Hi! QuickFix Services here!\n\nWhat do you need help with?\n• Plumbing 🚰\n• Electrical ⚡\n• Painting 🎨\n• Carpentry 🪚\n• Get a quote 📝\n\nTell me more!"
+                }
+            }
+        };
+
+        let currentBusiness = 'restaurant';
+
+        function showDemo(type) {
+            document.getElementById('landingPage').style.display = 'none';
+            if (type === 'business') {
+                document.getElementById('businessDashboard').classList.add('active');
+            } else {
+                document.getElementById('adminDashboard').classList.add('active');
+            }
+        }
+
+        function logout() {
+            document.getElementById('landingPage').style.display = 'flex';
+            document.getElementById('businessDashboard').classList.remove('active');
+            document.getElementById('adminDashboard').classList.remove('active');
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('#businessDashboard .nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+
+            document.querySelectorAll('#businessDashboard .view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+
+            const titles = {
+                'overview': 'Dashboard Overview',
+                'messages': 'Customer Messages',
+                'whatsapp-demo': 'WhatsApp Demo',
+                'settings': 'Settings',
+                'billing': 'Billing & Subscription'
+            };
+            document.getElementById('viewTitle').textContent = titles[viewId];
+        }
+
+        function switchAdminView(viewId) {
+            document.querySelectorAll('#adminDashboard .nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+
+            document.querySelectorAll('#adminDashboard .view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+
+            const titles = {
+                'admin-overview': 'Platform Overview',
+                'admin-businesses': 'All Businesses',
+                'admin-revenue': 'Revenue Dashboard',
+                'admin-analytics': 'Platform Analytics'
+            };
+            document.getElementById('adminViewTitle').textContent = titles[viewId];
+        }
+
+        function switchBusiness() {
+            const select = document.getElementById('businessTypeSelect');
+            currentBusiness = select.value;
+            const business = businesses[currentBusiness];
+            
+            document.getElementById('chatAvatar').textContent = business.avatar;
+            document.getElementById('chatBusinessName').textContent = business.name;
+            document.getElementById('chatBusinessStatus').textContent = 'Online • AI Agent Active';
+            
+            document.getElementById('chatMessages').innerHTML = '';
+            addBotMessageToChat(business.responses.default);
+        }
+
+        function addBotMessageToChat(text) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.innerHTML = `
+                <div class="message-bubble">
+                    <div class="message-text">${text.replace(/\n/g, '<br>')}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})}</div>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addCustomerMessageToChat(text) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message customer';
+            messageDiv.innerHTML = `
+                <div class="message-bubble">
+                    <div class="message-text">${text}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})}</div>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sendCustomerMessage() {
+            const input = document.getElementById('customerMessage');
+            const message = input.value.trim();
+            
+            if (message) {
+                addCustomerMessageToChat(message);
+                input.value = '';
+                
+                setTimeout(() => {
+                    respondToMessage(message.toLowerCase());
+                }, 1000);
+            }
+        }
+
+        function respondToMessage(message) {
+            const business = businesses[currentBusiness];
+            let response = business.responses.default;
+            
+            if (message.includes('menu') || message.includes('service') || message.includes('product')) {
+                response = business.responses.menu;
+            } else if (message.includes('hour') || message.includes('open') || message.includes('time')) {
+                response = business.responses.hours;
+            } else if (message.includes('order') || message.includes('book') || message.includes('appointment') || message.includes('buy')) {
+                response = business.responses.order;
+            } else if (message.includes('location') || message.includes('where') || message.includes('address')) {
+                response = business.responses.location;
+            } else if (message.includes('price') || message.includes('cost') || message.includes('how much')) {
+                response = business.responses.price;
+            }
+            
+            addBotMessageToChat(response);
+        }
+
+        function quickQuestion(question) {
+            document.getElementById('customerMessage').value = question;
+            sendCustomerMessage();
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                sendCustomerMessage();
+            }
+        }
+
+        window.addEventListener('load', () => {
+            if (document.getElementById('chatMessages')) {
+                addBotMessageToChat(businesses.restaurant.responses.default);
+            }
+        });
+    </script>
+</body>
+</html>
